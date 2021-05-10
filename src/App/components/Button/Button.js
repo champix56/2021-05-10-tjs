@@ -11,4 +11,8 @@ Button.propTypes={
     bgcolor:PropTypes.string.isRequired
     
 }
+Button.defaultProps={
+    action:()=>{console.log('default action')},
+    bgcolor:'green'
+}
 export default Button;
