@@ -5,5 +5,10 @@ function Button(props) {
     console.log(props);
     return <div style={{...props.style,backgroundColor:props.bgcolor}} className="Button" onClick={(evt)=>{props.action()}}>{props.title}</div>
 }
-
+Button.propTypes={
+    title:PropTypes.string.isRequired,
+    action:PropTypes.func.isRequired,
+    bgcolor:PropTypes.string.isRequired
+    
+}
 export default Button;
