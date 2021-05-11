@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Button from './components/Button/Button';
+import AnimatedButton from './components/AnimatedButton/AnimatedButton';
 
 class App extends React.Component {
   constructor(props)
@@ -24,6 +25,9 @@ class App extends React.Component {
         console.log(this.state);
         
       }} />
+      <br/>
+      <AnimatedButton title="Animated" action={()=>{console.log('hello');}}/>
+      <br/>
       {JSON.stringify(this.state)}
     </div>
   }
