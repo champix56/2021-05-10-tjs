@@ -7,6 +7,13 @@ import { REST_SERVER_ADR } from './config/config'
 import store from './store/store'
 import MemeThumbnail from './components/MemeThumbnail/MemeThumbnail';
 import MemeEditor from './components/MemeEditor/MemeEditor';
+import NavBar from './components/NavBar/NavBar';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  useParams
+} from 'react-router-dom'
 
 class App extends React.Component {
   constructor(props) {
@@ -23,19 +30,31 @@ class App extends React.Component {
     console.log('Le contenu du component a ete mis a jour', this.state);
   }
   render() {
-    return <div className="App">
-      <MemeEditor></MemeEditor>
-      <br />
-      <MemeThumbnail>
-        {
-          this.state.memes.map((element, index) => {
-            return <MemeSVGViewer meme={element} key={"viewer-" + index} />
-          })}
-      </MemeThumbnail>
-      <br />
-
-      {JSON.stringify(this.state)}
-    </div>
+    return <Router>
+      <div className="App">
+        <NavBar></NavBar>
+        <Switch>
+          <Route path='/' exact>Hello a tous</Route>
+          <Route path='/edit'>
+            <MemeEditor></MemeEditor>
+          </Route>
+          <Route path='/thumb/:id'>
+          {/* {JSON.stringify(this.state.memes.find(e => e.id === useParams().id))} */}
+            {/* <MemeSVGViewer meme={this.state.memes.find(e => e.id === useParams().id)} /> */}
+          </Route>
+          <Route path='/thumb'>
+            <MemeThumbnail>
+              {
+                this.state.memes.map((element, index) => {
+                  return <MemeSVGViewer meme={element} key={"viewer-" + index} />
+                })}
+            </MemeThumbnail>
+          </Route>
+        </Switch>
+        <br />
+        {/* {JSON.stringify(this.state)} */}
+      </div>
+    </Router>
   }
 }
 export default App;
