@@ -5,6 +5,8 @@ import AnimatedButton from './components/AnimatedButton/AnimatedButton';
 import MemeSVGViewer from './components/MemeSVGViewer/MemeSVGViewer';
 import { REST_SERVER_ADR } from './config/config'
 import store from './store/store'
+import MemeThumbnail from './components/MemeThumbnail/MemeThumbnail';
+import MemeEditor from './components/MemeEditor/MemeEditor';
 
 class App extends React.Component {
   constructor(props) {
@@ -12,9 +14,9 @@ class App extends React.Component {
     this.state = { text: "Hello", counter: 0, memes: [] };
   }
   componentDidMount() {
-    this.setState({ memes: store.getState().memes })
+    this.setState({ memes: store.getState().srvdata.memes })
     store.subscribe(() => {
-      this.setState({ memes: store.getState().memes })
+      this.setState({ memes: store.getState().srvdata.memes })
     })
   }
   componentDidUpdate() {
@@ -22,21 +24,14 @@ class App extends React.Component {
   }
   render() {
     return <div className="App">
-      <Button title="cliquez ICI !!" action={() => {
-        //interdit de muter le state directement 
-        //this.state.counter=this.state.counter+1;
-        this.setState({ counter: this.state.counter + 1 })
-        console.log(this.state);
-
-      }} />
+      <MemeEditor></MemeEditor>
       <br />
-      <AnimatedButton title="Animated" action={() => { console.log('hello'); }} />
-      <br />
-      {
-        this.state.memes.map((element, index) => {
-          return <MemeSVGViewer meme={element} key={"viewer-" + index} />
-        })}
-
+      <MemeThumbnail>
+        {
+          this.state.memes.map((element, index) => {
+            return <MemeSVGViewer meme={element} key={"viewer-" + index} />
+          })}
+      </MemeThumbnail>
       <br />
 
       {JSON.stringify(this.state)}

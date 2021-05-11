@@ -1,5 +1,6 @@
-import { createStore } from 'redux';
+import { combineReducers, createStore } from 'redux';
 import { REST_SERVER_ADR } from '../config/config';
+import editorReducer from './editorReducer';
 /**
  * etat initial du state du store redux
  */
@@ -17,7 +18,9 @@ export const MEMES_ACTIONS = Object.seal({
     ADD_IMAGE: 'ADD_IMAGE'
 });
 const MEMES_PRIVATE_ACTIONS = Object.seal({
-    INIT: 'INIT'
+    INIT: 'INIT',
+    INIT_MEMES: 'INIT_MEMES',
+    INIT_IMAGES: 'INIT_IMAGES',
 });
 
 /**
@@ -34,17 +37,19 @@ function memesReducer(state = initialState, action) {
                 .then((resp) => resp.json(), (error) => { console.log(error); return []; })
                 .then(arr => {
                     console.log(arr);
-                    store.dispatch({ type: MEMES_ACTIONS.ADD_MEMES, values: arr });
+                    store.dispatch({ type: MEMES_PRIVATE_ACTIONS.INIT_MEMES, values: arr });
                     return arr;
                 });
                 fetch(`${REST_SERVER_ADR}/images`, { headers: { "Content-Type": "application/json" } })
                 .then((resp) => resp.json(), (error) => { console.log(error); return []; })
                 .then(arr => {
                     console.log(arr);
-                    store.dispatch({ type: MEMES_ACTIONS.ADD_IMAGES, values: arr });
+                    store.dispatch({ type: MEMES_PRIVATE_ACTIONS.INIT_IMAGES, values: arr });
                     return arr;
                 });
             return state;
+        case MEMES_PRIVATE_ACTIONS.INIT_MEMES: return { ...state, memes: [ ...action.values] }
+        case MEMES_PRIVATE_ACTIONS.INIT_IMAGES: return { ...state, images: [ ...action.values] }
         case MEMES_ACTIONS.ADD_MEMES: return { ...state, memes: [...state.memes, ...action.values] }
         case MEMES_ACTIONS.ADD_MEME: return { ...state, memes: [...state.memes, action.value] }
         case MEMES_ACTIONS.ADD_IMAGES: return { ...state, images: [...state.images, ...action.values] }
@@ -55,18 +60,12 @@ function memesReducer(state = initialState, action) {
 /**
  * magasin partageable pour les composants
  */
-const store = createStore(memesReducer);
+const store = createStore(combineReducers({srvdata: memesReducer, current:editorReducer}));
 export default store;
 /**
  * souscription aux changements de l'etat du store
  */
 store.subscribe(() => {
-    console.log('le store a subit un changement');
+    console.log('le store a subit un changement'); 
     console.log(store.getState());
 });
-
-// store.dispatch({type:MEMES_ACTIONS.ADD_MEME,value:{text:'meme1'}});
-// store.dispatch({type:MEMES_ACTIONS.ADD_MEME,value:{text:'meme2'}});
-// store.dispatch({type:MEMES_ACTIONS.ADD_MEME,value:{text:'meme3'}});
-// store.dispatch({type:MEMES_ACTIONS.ADD_MEME,value:{text:'meme4'}});
-// store.dispatch({type:MEMES_ACTIONS.ADD_MEME,value:{text:'meme5'}});

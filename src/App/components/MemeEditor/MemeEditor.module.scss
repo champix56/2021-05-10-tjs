@@ -1,0 +1,15 @@
+.MemeEditor {
+    display: flex;
+}
+.viewer{
+    flex-grow: 1;
+    text-align: center;
+}
+.viewer>*{
+    width:100%;
+
+}
+.MemeEditor svg{
+    max-height: 70vh;
+    max-width: 70vh;
+}
