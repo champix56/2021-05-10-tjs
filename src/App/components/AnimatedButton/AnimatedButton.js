@@ -10,9 +10,11 @@ class AnimatedButton extends Component {
         return (
             <>
                 <div className={"AnimatedButton"+(this.state.clicked? " clicked":"")} style={this.props.style} onClick={(evt) => {
-                    this.props.action();
-                    this.setState({ clicked: true });
-                    setTimeout(() => { this.setState({ clicked: false }) }, 200)
+                    //gestion interne pour le click
+                     this.setState({ clicked: true });     
+                     setTimeout(() => { this.setState({ clicked: false }) }, 2000);
+                     //execution de l'action fournit par le parent
+                     this.props.action();
                 }}>
                     {this.props.title}
                 </div>
