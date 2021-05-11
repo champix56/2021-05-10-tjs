@@ -3,17 +3,22 @@ import './App.css';
 import Button from './components/Button/Button';
 import AnimatedButton from './components/AnimatedButton/AnimatedButton';
 import MemeSVGViewer from './components/MemeSVGViewer/MemeSVGViewer';
-
+import {REST_SERVER_ADR} from './config/config'
 class App extends React.Component {
   constructor(props)
   {
     super(props);
-    this.state={text:"Hello", counter:0};
+    this.state={text:"Hello", counter:0,memes:[]};
   }
   componentDidMount(){
-    this.setState({text:'je suis pret'});
+    fetch(`${REST_SERVER_ADR}/memes?_expand=image`,{headers:{"Content-Type":"application/json"}})
+      .then((resp)=>resp.json(),(error)=>{console.log(error);return  [];})
+      .then(arr=>{
+        console.log(arr);
+        this.setState({memes:arr})
+        return arr;
+      })
   }
-  com
   componentDidUpdate(){
     console.log('Le contenu du component a ete mis a jour',this.state);
   }
@@ -29,8 +34,11 @@ class App extends React.Component {
       <br/>
       <AnimatedButton title="Animated" action={()=>{console.log('hello');}}/>
       <br/>
-      <MemeSVGViewer/>
-
+      {
+        this.state.memes.map((element,index) => {
+          return <MemeSVGViewer meme={element} key={"viewer-"+index}/>
+        })}
+     
       <br/>
 
       {JSON.stringify(this.state)}
