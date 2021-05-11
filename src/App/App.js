@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import Button from './components/Button/Button';
 import AnimatedButton from './components/AnimatedButton/AnimatedButton';
+import MemeSVGViewer from './components/MemeSVGViewer/MemeSVGViewer';
 
 class App extends React.Component {
   constructor(props)
@@ -28,6 +29,10 @@ class App extends React.Component {
       <br/>
       <AnimatedButton title="Animated" action={()=>{console.log('hello');}}/>
       <br/>
+      <MemeSVGViewer/>
+
+      <br/>
+
       {JSON.stringify(this.state)}
     </div>
   }
