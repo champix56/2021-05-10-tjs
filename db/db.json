@@ -1,0 +1,9 @@
+{
+    "memes":[
+        {"titre": "React is easy","text": "Le js m'a tue","x":281,"y": 165,"color": "#d67171","fontSize": 104,"imageId": 0,"fontWeight": "800","underline": true,"italic": true,"frameSizeX": 0,"frameSizeY": 0,"id": 0},
+        {"titre": "React is easy","text": "Le react c'est trop fun","x":21,"y": 165,"color": "#acacac","fontSize": 75,"imageId": 0,"fontWeight": "900","underline": true,"italic": true,"frameSizeX": 0,"frameSizeY": 0,"id": 1}
+    ],
+    "images":[
+        {"id": 0,"url": "Beethoven.jpg","w": 1220,"h": 1443}
+    ]   
+}
