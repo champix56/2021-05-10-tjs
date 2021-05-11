@@ -4,6 +4,8 @@ import Button from './components/Button/Button';
 import AnimatedButton from './components/AnimatedButton/AnimatedButton';
 import MemeSVGViewer from './components/MemeSVGViewer/MemeSVGViewer';
 import {REST_SERVER_ADR} from './config/config'
+import store from './store/store'
+
 class App extends React.Component {
   constructor(props)
   {
