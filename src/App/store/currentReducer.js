@@ -1,3 +1,6 @@
+import { REST_SERVER_ADR } from "../config/config"
+
+
 export const initialState = {
     titre: '',
     text: '',
@@ -22,7 +25,9 @@ const currentReducer=(state = initialState, action) => {
 
   case CURRENT_ACTION.SET_CURRENT:return {...action.value }
   case CURRENT_ACTION.RESET_CURRENT:return { ...initialState }
-  case CURRENT_ACTION.SAVE_CURRENT:/*TODO : fetch POST current to server*/return { ...initialState }
+  case CURRENT_ACTION.SAVE_CURRENT:
+    fetch(`${REST_SERVER_ADR}/memes`, {method:'POST',headers:{'Content-Type':'application/json'}, body:JSON.stringify(state)})
+  return { ...initialState }
 
   default:
     return state
