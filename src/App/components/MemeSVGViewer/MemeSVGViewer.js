@@ -4,8 +4,8 @@ import styles from './MemeSVGViewer.module.css';
 import { IMG_BASE_DIR } from '../../config/config';
 
 const MemeSVGViewer = (props) => {
-  return <svg className={styles.MemeSVGViewer} data-testid="MemeSVGViewer" viewBox={`0 0 ${props.meme.image.w} ${props.meme.image.h}`}>
-    <image x={0} y={0} href={`${IMG_BASE_DIR}${props.meme.image.url}`} />
+  return <svg className={styles.MemeSVGViewer} data-testid="MemeSVGViewer" viewBox={`0 0 ${props.meme.image?props.meme.image.w:1000} ${props.meme.image?props.meme.image.h:1000}`}>
+   {props.meme.image && <image x={0} y={0} href={`${IMG_BASE_DIR}${props.meme.image.url}`} />}
     <text
       x={props.meme.x}
       y={props.meme.y}
