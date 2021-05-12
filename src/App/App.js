@@ -4,6 +4,7 @@ import MemeSVGViewer from './components/MemeSVGViewer/MemeSVGViewer';
 import store, { initialState as storeInitialState } from './store/store'
 import MemeThumbnail from './components/MemeThumbnail/MemeThumbnail';
 import MemeEditor from './components/MemeEditor/MemeEditor'
+import NavBar from './components/NavBar/NavBar';
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -22,6 +23,7 @@ class App extends React.Component {
   }
   render() {
     return <div className="App">
+      <NavBar/>
       <MemeEditor/>
       <hr/>
       <MemeThumbnail>
