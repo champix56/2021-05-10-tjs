@@ -1,20 +1,19 @@
 import React from 'react';
 import './App.css';
-import Button from './components/Button/Button';
-import AnimatedButton from './components/AnimatedButton/AnimatedButton';
 import MemeSVGViewer from './components/MemeSVGViewer/MemeSVGViewer';
-import { REST_SERVER_ADR } from './config/config'
-import store from './store/store'
-
+import store, { initialState as storeInitialState } from './store/store'
+import MemeThumbnail from './components/MemeThumbnail/MemeThumbnail'
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { text: "Hello", counter: 0, memes: [] };
+    this.state = { text: "Hello", counter: 0, ...storeInitialState };
   }
   componentDidMount() {
-    this.setState({ memes: store.getState().memes })
+    this.setState({ ...store.getState() })
+    // this.setState({ memes: store.getState().images })
     store.subscribe(() => {
-      this.setState({ memes: store.getState().memes })
+      this.setState({ ...store.getState() })
+      // this.setState({ images: store.getState().images })
     })
   }
   componentDidUpdate() {
@@ -22,21 +21,13 @@ class App extends React.Component {
   }
   render() {
     return <div className="App">
-      <Button title="cliquez ICI !!" action={() => {
-        //interdit de muter le state directement 
-        //this.state.counter=this.state.counter+1;
-        this.setState({ counter: this.state.counter + 1 })
-        console.log(this.state);
-
-      }} />
-      <br />
-      <AnimatedButton title="Animated" action={() => { console.log('hello'); }} />
-      <br />
-      {
-        this.state.memes.map((element, index) => {
-          return <MemeSVGViewer meme={element} key={"viewer-" + index} />
-        })}
-
+      <MemeThumbnail>
+        {
+          this.state.memes.map((element, index) => {
+            return <MemeSVGViewer meme={{ ...element, image: this.state.images.find((e) => e.id === element.imageId) }} key={"viewer-" + index} />;
+          })
+        }
+      </MemeThumbnail>
       <br />
 
       {JSON.stringify(this.state)}
