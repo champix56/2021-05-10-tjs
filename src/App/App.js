@@ -5,6 +5,9 @@ import store, { initialState as storeInitialState } from './store/store'
 import MemeThumbnail from './components/MemeThumbnail/MemeThumbnail';
 import MemeEditor from './components/MemeEditor/MemeEditor'
 import NavBar from './components/NavBar/NavBar';
+import { Route, Switch } from 'react-router-dom'
+import MemeViewer from './components/MemeViewer/MemeViewer';
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -23,18 +26,26 @@ class App extends React.Component {
   }
   render() {
     return <div className="App">
-      <NavBar/>
-      <MemeEditor/>
-      <hr/>
-      <MemeThumbnail>
-        {
-          this.state.memes.map((element, index) => {
-            return <MemeSVGViewer meme={{ ...element, image: this.state.images.find((e) => e.id === element.imageId) }} key={"viewer-" + index} />;
-          })
-        }
-      </MemeThumbnail>
-      <br />
-
+      <NavBar />
+      <Switch>
+        <Route path="/" exact>Demat les amis du meme</Route>
+        <Route path="/thumb/:idDuMeme">
+          <MemeViewer/>
+        </Route>
+        <Route path="/thumb" exact>
+          <MemeThumbnail>
+            {
+              this.state.memes.map((element, index) => {
+                return <MemeSVGViewer meme={{ ...element, image: this.state.images.find((e) => e.id === element.imageId) }} key={"viewer-" + index} />;
+              })
+            }
+          </MemeThumbnail>
+        </Route>
+        <Route path="/editor">
+          <MemeEditor />
+        </Route>
+        <Route path="/" ><h1>L'adresse demandée n'existe pas</h1></Route>
+      </Switch>
       {JSON.stringify(this.state)}
     </div>
   }

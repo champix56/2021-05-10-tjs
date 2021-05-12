@@ -29,6 +29,21 @@
       "frameSizeX": 0,
       "frameSizeY": 0,
       "id": 1
+    },
+    {
+      "titre": "gfbsdg",
+      "text": "coucou beethov",
+      "x": 0,
+      "y": "120",
+      "color": "#601010",
+      "fontSize": "120",
+      "imageId": 0,
+      "fontWeight": "800",
+      "underline": true,
+      "italic": true,
+      "frameSizeX": 0,
+      "frameSizeY": 0,
+      "id": 2
     }
   ],
   "images": [
